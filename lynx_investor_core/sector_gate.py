@@ -10,7 +10,11 @@ companies outside its scope. The rules are identical in structure:
    (matched with word boundaries so ``"ore"`` does not match inside ``"store"``).
 4. Else, raise :class:`SectorMismatchError`.
 
-Agents instantiate :class:`SectorValidator` with their own config.
+Agents instantiate :class:`SectorValidator` with their own config. When the
+validator knows its own agent name (via ``agent_name``) it automatically
+appends a "Suggestion: use '<other-agent>' instead" line — sourced from
+:mod:`lynx_investor_core.sector_registry` — to the exception message,
+while keeping the existing warning text exactly as it was.
 """
 
 from __future__ import annotations
@@ -18,6 +22,8 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 from typing import Iterable, Optional, Protocol
+
+from .sector_registry import format_agent_suggestion
 
 
 class _ProfileLike(Protocol):
@@ -41,6 +47,7 @@ class SectorValidator:
     allowed_industries: frozenset[str]
     description_patterns: tuple[str, ...] = ()
     scope_description: str = "this sector"  # used in the error message
+    agent_name: Optional[str] = None        # enables suite-aware suggestions
 
     @classmethod
     def build(
@@ -50,12 +57,14 @@ class SectorValidator:
         allowed_industries: Iterable[str],
         description_patterns: Iterable[str] = (),
         scope_description: str = "this sector",
+        agent_name: Optional[str] = None,
     ) -> "SectorValidator":
         return cls(
             allowed_sectors=frozenset(s.lower() for s in allowed_sectors),
             allowed_industries=frozenset(s.lower() for s in allowed_industries),
             description_patterns=tuple(description_patterns),
             scope_description=scope_description,
+            agent_name=agent_name,
         )
 
     def validate(self, profile: _ProfileLike) -> None:
@@ -77,11 +86,15 @@ class SectorValidator:
         ):
             return
 
-        raise SectorMismatchError(
+        message = (
             f"{profile.name} ({profile.ticker}) is in the "
             f"'{profile.sector or 'Unknown'}' / '{profile.industry or 'Unknown'}' "
             f"sector/industry, which is outside {self.scope_description}."
         )
+        message += format_agent_suggestion(
+            profile, current_agent=self.agent_name,
+        )
+        raise SectorMismatchError(message)
 
     def is_allowed(self, profile: _ProfileLike) -> bool:
         try:

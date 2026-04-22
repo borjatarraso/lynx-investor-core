@@ -6,6 +6,31 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v2.0] — 2026-04-22
+
+Part of **Lince Investor Suite v3.0**.
+
+### Added
+- `pager` module with uniform PageUp / PageDown handling across every UI
+  mode in the suite:
+  - `PagingAppMixin` + `tui_paging_bindings()` for Textual apps.
+  - `console_pager()` / `paged_print()` for interactive & console mode
+    (pages long output through the system pager; Shift+PageUp/Shift+PageDn
+    still reach the terminal's scrollback).
+  - `bind_tk_paging()` for Tkinter GUIs (maps `<Prior>` / `<Next>` to
+    `yview_scroll`).
+- `sector_registry` module: single source of truth for the Suite's
+  specialized agents. Drives the new "Suggestion: use 'lynx-investor-X'
+  instead" line that `SectorValidator` now appends to
+  `SectorMismatchError` — while keeping the existing warning text as-is.
+- `SectorValidator.agent_name` field so each agent identifies itself to
+  the registry and is never suggested to itself.
+
+### Changed
+- Bumped to v2.0 alongside the Suite's v3.0 coordinated release.
+
+---
+
 ## [v1.0] — 2026-04-20
 
 First release — extracted from the shared scaffolding that had been duplicated
