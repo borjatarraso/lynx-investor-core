@@ -54,11 +54,13 @@ def test_theme_by_name_unknown_returns_none() -> None:
 
 
 def test_suite_registry_has_expected_count() -> None:
-    # Mirror of SUITE_THEMES — 22 curated palettes.
-    assert len(SUITE_GUI_THEMES) == 22
-    assert len(SUITE_GUI_THEME_NAMES) == 22
+    # Mirror of SUITE_THEMES — at least the core 22 palettes plus any
+    # additions (lynx-theme family, etc.).
+    assert len(SUITE_GUI_THEMES) >= 22
+    assert len(SUITE_GUI_THEME_NAMES) == len(SUITE_GUI_THEMES)
     assert "catppuccin-mocha" in SUITE_GUI_THEME_NAMES
     assert "dracula" in SUITE_GUI_THEME_NAMES
+    assert "lynx-theme" in SUITE_GUI_THEME_NAMES
 
 
 # ---------------------------------------------------------------------------
@@ -152,8 +154,10 @@ def test_theme_cycler_next_previous_wraps(tk_root) -> None:
         seen.append(cycler.next().name)
     assert seen[-1] == seen[0]  # wrap-around confirmed
 
-    # previous() also wraps (mocha → last theme going backward).
-    fresh = ThemeCycler(tk_root, start="catppuccin-mocha")
+    # previous() also wraps: starting at theme[0] and going back lands
+    # on the last theme in the list, regardless of how many are in it.
+    first_name = SUITE_GUI_THEMES[0].name
+    fresh = ThemeCycler(tk_root, start=first_name)
     fresh.apply_current()
     wrapped = fresh.previous().name
     assert wrapped == SUITE_GUI_THEMES[-1].name

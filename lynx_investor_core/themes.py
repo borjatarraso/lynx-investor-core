@@ -46,6 +46,10 @@ if TYPE_CHECKING:
 
 
 __all__ = [
+    # Lynx house themes (financial-first)
+    "LYNX_THEME",
+    "LYNX_THEME_LIGHT",
+    "TERMINAL_DEFAULT",
     # Catppuccin
     "CATPPUCCIN_LATTE",
     "CATPPUCCIN_FRAPPE",
@@ -77,6 +81,85 @@ __all__ = [
     "SUITE_THEME_NAMES",
     "register_suite_themes",
 ]
+
+
+# ---------------------------------------------------------------------------
+# Lynx house themes — designed for portfolio viewing first
+# ---------------------------------------------------------------------------
+#
+# The problem these solve: most of the beloved developer palettes below
+# (Catppuccin, Dracula, Nord, Rose Pine, …) stylise ``success`` and
+# ``error`` to harmonise with their overall aesthetic. For a code editor
+# that's fine; for a portfolio it's a regression — ``+12.4%`` should
+# *scream* green, ``-7.8%`` should *scream* red, and nothing else in the
+# chrome should compete. The ``lynx-theme`` pair below deliberately
+# keeps the backgrounds neutral and the gain/loss colours unmistakable.
+#
+# Use them when you're watching markets; use anything else when you
+# want to be pretty.
+
+LYNX_THEME = Theme(
+    name="lynx-theme",
+    primary="#3daee9",        # Lynx blue for headers, borders, selection
+    secondary="#7dd3fc",      # softer blue for secondary chrome
+    accent="#facc15",         # amber highlight for focus rings / notices
+    warning="#f59e0b",        # distinct amber, never mistaken for red/green
+    error="#ef4444",          # vivid true red — losses visible at a glance
+    success="#22c55e",        # vivid true green — gains visible at a glance
+    foreground="#e6eaf0",     # clean light gray, high contrast on dark
+    background="#0f1419",     # Bloomberg-adjacent dark neutral (no color tint)
+    surface="#171c23",
+    panel="#252b33",
+    dark=True,
+)
+
+LYNX_THEME_LIGHT = Theme(
+    name="lynx-theme-light",
+    primary="#0369a1",        # deep blue for headers
+    secondary="#0891b2",      # teal
+    accent="#ca8a04",         # gold
+    warning="#d97706",        # orange — distinct from both red and green
+    error="#b91c1c",          # deep red, readable on cream
+    success="#16a34a",        # green readable on cream, distinctly green-dominant
+    foreground="#1c1917",     # near-black
+    background="#fafaf9",     # warm off-white (not pure white)
+    surface="#f5f5f4",
+    panel="#e7e5e4",
+    dark=False,
+)
+
+
+# ---------------------------------------------------------------------------
+# Terminal default — "no theme" — lets ANSI shine through
+# ---------------------------------------------------------------------------
+#
+# Textual always applies *some* palette; there's no true pass-through.
+# This theme picks colours as close to the classic VT100 / 16-color ANSI
+# set as possible so the app looks "plain terminal" on most users'
+# terminal-emulator colour schemes. In particular:
+#
+#   * background / surface / panel are black (terminal-typical);
+#   * foreground is pure white;
+#   * primary / success / error map to ANSI cyan / green / red at their
+#     brightest so the user's terminal colour scheme shines through.
+#
+# It's the cleanest choice for users who've tuned their own terminal
+# palette (Solarized, base16, etc.) and want the Suite to follow suit.
+
+TERMINAL_DEFAULT = Theme(
+    name="terminal-default",
+    primary="#00afff",        # ansi-bright cyan
+    secondary="#5fd7ff",
+    accent="#ffff5f",         # ansi-bright yellow
+    warning="#ffaf00",
+    error="#ff0000",          # ansi red
+    success="#00ff00",        # ansi green
+    foreground="#ffffff",
+    background="#000000",
+    surface="#0a0a0a",
+    panel="#1a1a1a",
+    dark=True,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -474,6 +557,10 @@ SYNTHWAVE_84 = Theme(
 # ---------------------------------------------------------------------------
 
 SUITE_THEMES: List[Theme] = [
+    # Lynx house (financial-first — vivid green/red, neutral chrome)
+    LYNX_THEME,
+    LYNX_THEME_LIGHT,
+    TERMINAL_DEFAULT,
     # Catppuccin
     CATPPUCCIN_MOCHA,
     CATPPUCCIN_MACCHIATO,
