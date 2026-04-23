@@ -50,6 +50,16 @@ __all__ = [
     "LYNX_THEME",
     "LYNX_THEME_LIGHT",
     "TERMINAL_DEFAULT",
+    # Editor / terminal classics
+    "BLACK_AND_WHITE",
+    "EMACS_CLASSIC",
+    "VIM_DEFAULT",
+    "SUBLIME_DEFAULT",
+    "VSCODE_LIGHT",
+    "GITHUB_LIGHT",
+    "GITHUB_DARK",
+    "AYU_DARK",
+    "NIGHT_OWL",
     # Catppuccin
     "CATPPUCCIN_LATTE",
     "CATPPUCCIN_FRAPPE",
@@ -158,6 +168,155 @@ TERMINAL_DEFAULT = Theme(
     background="#000000",
     surface="#0a0a0a",
     panel="#1a1a1a",
+    dark=True,
+)
+
+
+# ---------------------------------------------------------------------------
+# Editor / terminal classics
+# ---------------------------------------------------------------------------
+
+BLACK_AND_WHITE = Theme(
+    name="black-and-white",
+    primary="#ffffff",
+    secondary="#cccccc",
+    accent="#ffffff",
+    warning="#bbbbbb",
+    error="#ffffff",          # B&W keeps PnL readable via bold/brightness
+    success="#ffffff",
+    foreground="#ffffff",
+    background="#000000",
+    surface="#0a0a0a",
+    panel="#1a1a1a",
+    dark=True,
+)
+
+# Emacs classic — the default 1985-era palette (light bg, classic primary
+# colors). Matches the look of `M-x color-theme-classic` in emacs.
+EMACS_CLASSIC = Theme(
+    name="emacs-classic",
+    primary="#0000ff",        # classic emacs function-name blue
+    secondary="#a020f0",      # keyword purple
+    accent="#ff00ff",          # string magenta
+    warning="#b8860b",         # dark goldenrod for warnings
+    error="#ff0000",
+    success="#228b22",         # forestgreen for comments / success
+    foreground="#000000",
+    background="#ffffff",
+    surface="#f0f0f0",
+    panel="#d0d0d0",
+    dark=False,
+)
+
+# Vim default — Bram Moolenaar's out-of-the-box colors for dark terminals.
+VIM_DEFAULT = Theme(
+    name="vim-default",
+    primary="#87ceeb",         # vim "Identifier" light-blue
+    secondary="#ffff00",        # vim "Statement" yellow
+    accent="#ff00ff",           # vim "PreProc" magenta
+    warning="#ff8700",
+    error="#ff6060",            # vim "Error"
+    success="#60ff60",          # vim "String" green (lightgreen on dark)
+    foreground="#eeeeee",
+    background="#000000",
+    surface="#1c1c1c",
+    panel="#303030",
+    dark=True,
+)
+
+# Sublime Text default (Monokai-derived).
+SUBLIME_DEFAULT = Theme(
+    name="sublime-default",
+    primary="#66d9ef",          # sublime function blue
+    secondary="#a6e22e",         # sublime class green
+    accent="#f92672",            # sublime keyword pink
+    warning="#fd971f",           # sublime number orange
+    error="#f92672",
+    success="#a6e22e",
+    foreground="#f8f8f2",
+    background="#272822",        # sublime classic background
+    surface="#3e3d32",
+    panel="#49483e",
+    dark=True,
+)
+
+# VS Code Light — the out-of-the-box light theme.
+VSCODE_LIGHT = Theme(
+    name="vscode-light",
+    primary="#0070c1",
+    secondary="#795e26",         # function name brown
+    accent="#af00db",            # keyword purple
+    warning="#bf8803",
+    error="#a31515",             # string-red
+    success="#008000",
+    foreground="#000000",
+    background="#ffffff",
+    surface="#f3f3f3",
+    panel="#e7e7e7",
+    dark=False,
+)
+
+# GitHub Light — the GitHub.com source-view palette.
+GITHUB_LIGHT = Theme(
+    name="github-light",
+    primary="#0550ae",
+    secondary="#6f42c1",
+    accent="#cf222e",
+    warning="#9a6700",
+    error="#cf222e",
+    success="#1a7f37",
+    foreground="#1f2328",
+    background="#ffffff",
+    surface="#f6f8fa",
+    panel="#d0d7de",
+    dark=False,
+)
+
+# GitHub Dark (aka "Dark Dimmed" classic).
+GITHUB_DARK = Theme(
+    name="github-dark",
+    primary="#58a6ff",
+    secondary="#d2a8ff",
+    accent="#ff7b72",
+    warning="#d29922",
+    error="#f85149",
+    success="#3fb950",
+    foreground="#c9d1d9",
+    background="#0d1117",
+    surface="#161b22",
+    panel="#30363d",
+    dark=True,
+)
+
+# Ayu Dark — minimalist dark amber accents, a VSCode community favorite.
+AYU_DARK = Theme(
+    name="ayu-dark",
+    primary="#ffb454",          # ayu orange
+    secondary="#59c2ff",         # ayu blue
+    accent="#d2a6ff",            # ayu purple
+    warning="#ff8f40",
+    error="#f07178",
+    success="#aad94c",
+    foreground="#bfbdb6",
+    background="#0b0e14",
+    surface="#11151c",
+    panel="#1c2029",
+    dark=True,
+)
+
+# Night Owl — Sarah Drasner's late-night coding palette, 1M+ installs.
+NIGHT_OWL = Theme(
+    name="night-owl",
+    primary="#82aaff",
+    secondary="#c792ea",
+    accent="#ffcb8b",
+    warning="#ffeb95",
+    error="#ef5350",
+    success="#addb67",
+    foreground="#d6deeb",
+    background="#011627",
+    surface="#0b2942",
+    panel="#1d3b53",
     dark=True,
 )
 
@@ -561,6 +720,16 @@ SUITE_THEMES: List[Theme] = [
     LYNX_THEME,
     LYNX_THEME_LIGHT,
     TERMINAL_DEFAULT,
+    # Editor / terminal classics
+    BLACK_AND_WHITE,
+    GITHUB_DARK,
+    GITHUB_LIGHT,
+    VSCODE_LIGHT,
+    SUBLIME_DEFAULT,
+    AYU_DARK,
+    NIGHT_OWL,
+    VIM_DEFAULT,
+    EMACS_CLASSIC,
     # Catppuccin
     CATPPUCCIN_MOCHA,
     CATPPUCCIN_MACCHIATO,

@@ -11,6 +11,7 @@ from lynx_investor_core.gui_themes import (  # noqa: E402
     SUITE_GUI_THEME_NAMES,
     ThemeCycler,
     apply_theme,
+    list_themes_by_family,
     theme_by_name,
 )
 
@@ -174,3 +175,58 @@ def test_theme_cycler_set_jumps_to_theme(tk_root) -> None:
     assert cycler.current_name == "nord"
     with pytest.raises(ValueError):
         cycler.set("not-a-theme")
+
+
+# ---------------------------------------------------------------------------
+# list_themes_by_family
+# ---------------------------------------------------------------------------
+
+
+def test_list_themes_by_family_all_nonempty() -> None:
+    families = list_themes_by_family()
+    assert families, "expected at least one family"
+    for family, names in families.items():
+        assert names, f"family {family!r} is empty"
+
+
+def test_list_themes_by_family_covers_all_themes_exactly_once() -> None:
+    families = list_themes_by_family()
+    seen: List[str] = []
+    for names in families.values():
+        seen.extend(names)
+
+    # Every Suite theme appears in exactly one family.
+    for name in SUITE_GUI_THEME_NAMES:
+        assert seen.count(name) == 1, (
+            f"theme {name!r} should appear in exactly one family, "
+            f"found {seen.count(name)}"
+        )
+
+    # No family contains a theme that is not in the registry.
+    for name in seen:
+        assert name in SUITE_GUI_THEME_NAMES, (
+            f"family contains unknown theme {name!r}"
+        )
+
+    # The totals match.
+    assert len(seen) == len(SUITE_GUI_THEME_NAMES)
+
+
+def test_list_themes_by_family_deterministic_order() -> None:
+    first = list_themes_by_family()
+    second = list_themes_by_family()
+    assert list(first.keys()) == list(second.keys())
+    for family in first:
+        assert first[family] == second[family]
+
+
+def test_list_themes_by_family_expected_families() -> None:
+    families = list_themes_by_family()
+    assert list(families.keys()) == [
+        "Lynx",
+        "Editor classics",
+        "Catppuccin",
+        "Popular dark",
+        "Light",
+        "Retro / nerd",
+    ]

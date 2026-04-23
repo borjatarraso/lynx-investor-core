@@ -23,7 +23,7 @@ headless / test environments that do not have a display.
 
 from __future__ import annotations
 
-from typing import List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 from textual.theme import Theme
 
@@ -34,6 +34,7 @@ __all__ = [
     "SUITE_GUI_THEMES",
     "SUITE_GUI_THEME_NAMES",
     "apply_theme",
+    "list_themes_by_family",
     "theme_by_name",
     "ThemeCycler",
 ]
@@ -52,6 +53,75 @@ def theme_by_name(name: str) -> Optional[Theme]:
         if theme.name == name:
             return theme
     return None
+
+
+def list_themes_by_family() -> Dict[str, List[str]]:
+    """Group Suite themes into a family → [theme-name] dict for menus.
+
+    The order within each list is the rotation order so menu items
+    visibly follow the ``Ctrl+T`` cycle. Families:
+
+    - "Lynx"               — lynx-theme, lynx-theme-light, terminal-default
+    - "Editor classics"    — black-and-white, github-dark, github-light,
+                              vscode-light, sublime-default, ayu-dark,
+                              night-owl, vim-default, emacs-classic
+    - "Catppuccin"         — mocha, macchiato, frappé, latte
+    - "Popular dark"       — dracula, tokyo-night, tokyo-night-storm,
+                              nord, one-dark, gruvbox-dark, monokai-pro,
+                              rose-pine, kanagawa, everforest-dark,
+                              solarized-dark
+    - "Light"              — gruvbox-light, rose-pine-dawn, solarized-light
+    - "Retro / nerd"       — matrix, cyberpunk-2077, synthwave-84,
+                              fallout-terminal
+    """
+    return {
+        "Lynx": [
+            "lynx-theme",
+            "lynx-theme-light",
+            "terminal-default",
+        ],
+        "Editor classics": [
+            "black-and-white",
+            "github-dark",
+            "github-light",
+            "vscode-light",
+            "sublime-default",
+            "ayu-dark",
+            "night-owl",
+            "vim-default",
+            "emacs-classic",
+        ],
+        "Catppuccin": [
+            "catppuccin-mocha",
+            "catppuccin-macchiato",
+            "catppuccin-frappe",
+            "catppuccin-latte",
+        ],
+        "Popular dark": [
+            "dracula",
+            "tokyo-night",
+            "tokyo-night-storm",
+            "nord",
+            "one-dark",
+            "gruvbox-dark",
+            "monokai-pro",
+            "rose-pine",
+            "kanagawa",
+            "everforest-dark",
+            "solarized-dark",
+        ],
+        "Light": [
+            "gruvbox-light",
+            "rose-pine-dawn",
+            "solarized-light",
+        ],
+        "Retro / nerd": [
+            "matrix",
+            "cyberpunk-2077",
+            "synthwave-84",
+            "fallout-terminal",
+        ],
+    }
 
 
 def _resolve(theme: Union[str, Theme]) -> Optional[Theme]:

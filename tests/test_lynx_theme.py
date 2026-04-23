@@ -111,3 +111,37 @@ class TestLynxThemeNames:
         assert themes.LYNX_THEME.dark is True
         assert themes.LYNX_THEME_LIGHT.dark is False
         assert themes.TERMINAL_DEFAULT.dark is True
+
+
+class TestEditorClassicsRegistered:
+    """v5.5: editor / terminal classics are in the Suite gallery."""
+
+    @pytest.mark.parametrize("name", [
+        "black-and-white",
+        "emacs-classic",
+        "vim-default",
+        "sublime-default",
+        "vscode-light",
+        "github-light",
+        "github-dark",
+        "ayu-dark",
+        "night-owl",
+    ])
+    def test_present(self, name: str) -> None:
+        names = {t.name for t in themes.SUITE_THEMES}
+        assert name in names
+
+    def test_black_and_white_is_monochrome(self) -> None:
+        t = themes.BLACK_AND_WHITE
+        # Every notable color channel identical or near-identical → monochrome.
+        for color in (t.primary, t.foreground, t.success, t.error):
+            r, g, b = _hex_to_rgb(color)
+            assert abs(r - g) <= 5 and abs(g - b) <= 5
+
+    def test_github_dark_is_dark(self) -> None:
+        assert themes.GITHUB_DARK.dark is True
+        assert _brightness(themes.GITHUB_DARK.background) < 30
+
+    def test_emacs_classic_is_light(self) -> None:
+        assert themes.EMACS_CLASSIC.dark is False
+        assert _brightness(themes.EMACS_CLASSIC.background) > 240
