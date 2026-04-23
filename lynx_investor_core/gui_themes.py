@@ -35,6 +35,7 @@ __all__ = [
     "SUITE_GUI_THEME_NAMES",
     "apply_theme",
     "list_themes_by_family",
+    "register_gui_themes",
     "theme_by_name",
     "ThemeCycler",
 ]
@@ -47,9 +48,34 @@ SUITE_GUI_THEME_NAMES: List[str] = list(SUITE_THEME_NAMES)
 DEFAULT_THEME_NAME = "catppuccin-mocha"
 
 
+# Extra themes registered by sector GUIs at runtime (house themes that are
+# not part of the Suite gallery). They are kept separate from
+# ``SUITE_GUI_THEMES`` so the Suite menus stay stable, but ``theme_by_name``
+# and ``apply_theme`` look them up transparently.
+_EXTRA_THEMES: List[Theme] = []
+
+
+def register_gui_themes(*themes: Theme) -> None:
+    """Add *themes* to the runtime registry.
+
+    After registration, :func:`theme_by_name` and :func:`apply_theme` can
+    resolve the theme by name. Useful for sector packages that ship their
+    own house palettes (typically only registered on the Textual App).
+
+    Duplicates (by ``name``) are ignored.
+    """
+    for theme in themes:
+        if theme_by_name(theme.name) is not None:
+            continue
+        _EXTRA_THEMES.append(theme)
+
+
 def theme_by_name(name: str) -> Optional[Theme]:
     """Return the :class:`Theme` matching *name* or ``None``."""
     for theme in SUITE_GUI_THEMES:
+        if theme.name == name:
+            return theme
+    for theme in _EXTRA_THEMES:
         if theme.name == name:
             return theme
     return None
@@ -118,6 +144,7 @@ def list_themes_by_family() -> Dict[str, List[str]]:
         "Retro / nerd": [
             "matrix",
             "cyberpunk-2077",
+            "cybrdots",
             "synthwave-84",
             "fallout-terminal",
         ],
@@ -513,7 +540,9 @@ class ThemeCycler:
 
     def __init__(self, root, start: str = DEFAULT_THEME_NAME) -> None:
         self._root = root
-        self._themes: List[Theme] = list(SUITE_GUI_THEMES)
+        # Include any house themes registered via ``register_gui_themes``
+        # so sector GUIs can boot (and cycle) on their own palettes.
+        self._themes: List[Theme] = list(SUITE_GUI_THEMES) + list(_EXTRA_THEMES)
         names = [t.name for t in self._themes]
         try:
             self._index = names.index(start)

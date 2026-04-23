@@ -6,14 +6,18 @@ import pytest
 
 tk = pytest.importorskip("tkinter")
 
+from textual.theme import Theme  # noqa: E402
+
 from lynx_investor_core.gui_themes import (  # noqa: E402
     SUITE_GUI_THEMES,
     SUITE_GUI_THEME_NAMES,
     ThemeCycler,
     apply_theme,
     list_themes_by_family,
+    register_gui_themes,
     theme_by_name,
 )
+from lynx_investor_core import gui_themes as _gui_themes_mod  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -191,7 +195,7 @@ def test_list_themes_by_family_all_nonempty() -> None:
 
 def test_list_themes_by_family_covers_all_themes_exactly_once() -> None:
     families = list_themes_by_family()
-    seen: List[str] = []
+    seen: list[str] = []
     for names in families.values():
         seen.extend(names)
 
@@ -230,3 +234,72 @@ def test_list_themes_by_family_expected_families() -> None:
         "Light",
         "Retro / nerd",
     ]
+
+
+# ---------------------------------------------------------------------------
+# register_gui_themes
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture()
+def _clean_extras():
+    """Snapshot and restore ``_EXTRA_THEMES`` around each test."""
+    saved = list(_gui_themes_mod._EXTRA_THEMES)
+    try:
+        _gui_themes_mod._EXTRA_THEMES.clear()
+        yield
+    finally:
+        _gui_themes_mod._EXTRA_THEMES.clear()
+        _gui_themes_mod._EXTRA_THEMES.extend(saved)
+
+
+def _make_house_theme(name: str) -> Theme:
+    return Theme(
+        name=name,
+        primary="#89b4fa",
+        secondary="#a6adc8",
+        accent="#f9e2af",
+        warning="#fab387",
+        error="#f38ba8",
+        success="#a6e3a1",
+        foreground="#cdd6f4",
+        background="#1e1e2e",
+        surface="#313244",
+        panel="#45475a",
+        dark=True,
+    )
+
+
+def test_register_gui_themes_resolves_by_name(_clean_extras, tk_root) -> None:
+    house = _make_house_theme("test-house-dark")
+    assert theme_by_name("test-house-dark") is None
+
+    register_gui_themes(house)
+
+    # theme_by_name now finds it
+    resolved = theme_by_name("test-house-dark")
+    assert resolved is house
+
+    # apply_theme accepts the name
+    label = tk.Label(tk_root, text="hi")
+    label.pack()
+    apply_theme(tk_root, theme="test-house-dark")
+    assert label.cget("bg").lower() == house.background.lower()
+    assert label.cget("fg").lower() == house.foreground.lower()
+
+
+def test_register_gui_themes_ignores_duplicates(_clean_extras) -> None:
+    house1 = _make_house_theme("dup-house")
+    house2 = _make_house_theme("dup-house")
+
+    register_gui_themes(house1)
+    register_gui_themes(house2)
+    # Only the first registration wins.
+    assert _gui_themes_mod._EXTRA_THEMES == [house1]
+
+    # Also ignored when the name already belongs to a Suite theme.
+    suite_name = SUITE_GUI_THEME_NAMES[0]
+    clone = _make_house_theme(suite_name)
+    register_gui_themes(clone)
+    # The Suite theme is still what theme_by_name returns.
+    assert theme_by_name(suite_name) is not clone

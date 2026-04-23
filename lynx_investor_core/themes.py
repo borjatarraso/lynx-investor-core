@@ -83,6 +83,7 @@ __all__ = [
     "SOLARIZED_LIGHT",
     # Nerd / retro
     "CYBERPUNK_2077",
+    "CYBRDOTS",
     "FALLOUT_TERMINAL",
     "MATRIX",
     "SYNTHWAVE_84",
@@ -710,6 +711,24 @@ SYNTHWAVE_84 = Theme(
     dark=True,
 )
 
+# "Cyberpunk Dots" — neon cyan + magenta on a deep-purple background.
+# Previously duplicated across lynx-finance/health/tech/comm; promoted
+# to core in v5.5.1 so every Suite program can use it.
+CYBRDOTS = Theme(
+    name="cybrdots",
+    primary="#00f0ff",       # electric cyan
+    secondary="#ff2bd6",     # hot magenta / neon pink
+    accent="#c6ff00",        # lime green
+    warning="#ffb000",       # amber
+    error="#ff2d5a",         # neon red
+    success="#39ff14",       # neon green
+    foreground="#e0f7ff",    # pale cyan text
+    background="#0a0014",    # deep purple-black
+    surface="#140028",       # midnight violet
+    panel="#1f0a3c",         # dark indigo panel
+    dark=True,
+)
+
 
 # ---------------------------------------------------------------------------
 # Registry + helper
@@ -754,6 +773,7 @@ SUITE_THEMES: List[Theme] = [
     # Nerd / retro
     MATRIX,
     CYBERPUNK_2077,
+    CYBRDOTS,
     SYNTHWAVE_84,
     FALLOUT_TERMINAL,
 ]
