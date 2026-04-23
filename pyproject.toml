@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name            = "lynx-investor-core"
-version         = "4.0"
+version = "4.0.1"
 description     = "Shared runtime for the Lince Investor suite (lynx-investor-* agents)"
 readme          = "README.md"
 license         = { text = "BSD-3-Clause" }

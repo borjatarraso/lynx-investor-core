@@ -1,15 +1,66 @@
 # lynx-investor-core
 
 Shared runtime for the **Lince Investor Suite** — the common scaffolding used by
-every `lynx-investor-*` agent (basic materials, energy, information technology,
-and future sector agents).
+every `lynx-investor-*` agent and by the three auxiliary apps
+(`lynx-fundamental`, `lynx-compare`, `lynx-portfolio`).
 
-This package is **not a standalone tool**. Install it alongside one of the agent
-packages:
+This package is **not a standalone tool**. Install it alongside one of the
+Suite packages below.
 
-- [lynx-investor-basic-materials](https://github.com/borjatarraso/lynx-investor-basic-materials)
-- [lynx-investor-energy](https://github.com/borjatarraso/lynx-investor-energy)
-- …
+## The Lince Investor Suite
+
+The Suite (current release: **v4.0**) bundles three families of programs:
+
+### Specialized investor agents — one per GICS sector
+
+Each agent analyzes a company against that sector's fundamentals; the
+sector gate refuses to analyze companies outside its scope and suggests
+which other Suite agent to use instead.
+
+| Agent | Sector |
+|---|---|
+| [`lynx-investor-basic-materials`](https://github.com/borjatarraso/lynx-investor-basic-materials) | Junior mining, metals, uranium, basic materials |
+| [`lynx-investor-energy`](https://github.com/borjatarraso/lynx-investor-energy) | Oil & gas, midstream, refining, energy equipment |
+| [`lynx-investor-industrials`](https://github.com/borjatarraso/lynx-investor-industrials) | Aerospace, defense, transportation, machinery |
+| [`lynx-investor-utilities`](https://github.com/borjatarraso/lynx-investor-utilities) | Regulated electric / gas / water utilities |
+| [`lynx-investor-healthcare`](https://github.com/borjatarraso/lynx-investor-healthcare) | Pharma, biotech, medical devices, healthcare services |
+| [`lynx-investor-financials`](https://github.com/borjatarraso/lynx-investor-financials) | Banks, insurers, asset managers, capital markets |
+| [`lynx-investor-information-technology`](https://github.com/borjatarraso/lynx-investor-information-technology) | Software, semiconductors, hardware, IT services |
+| [`lynx-investor-communication-services`](https://github.com/borjatarraso/lynx-investor-communication-services) | Telecom, media, entertainment, interactive platforms |
+| [`lynx-investor-consumer-discretionary`](https://github.com/borjatarraso/lynx-investor-consumer-discretionary) | Autos, apparel, retail, restaurants, leisure |
+| [`lynx-investor-consumer-staples`](https://github.com/borjatarraso/lynx-investor-consumer-staples) | Food, beverage, household products, staples retail |
+| [`lynx-investor-real-estate`](https://github.com/borjatarraso/lynx-investor-real-estate) | REITs — residential, retail, office, industrial, specialty |
+
+### Auxiliary apps
+
+| App | Purpose |
+|---|---|
+| [`lynx-fundamental`](https://github.com/borjatarraso/lynx-fundamental) | Generic fundamental-analysis tool for companies that don't fit a specialized agent. |
+| [`lynx-compare`](https://github.com/borjatarraso/lynx-compare) | Side-by-side comparison of two tickers across every metric; text / HTML / PDF export; Flask server. |
+| [`lynx-portfolio`](https://github.com/borjatarraso/lynx-portfolio) | Portfolio tracker with an encrypted vault, live Yahoo Finance data, **dashboard analytics**, and a secured REST API. See the dashboard feature below. |
+
+### Suite-wide Portfolio Dashboard (v4.0)
+
+`lynx-portfolio` ships a dashboard that turns the raw portfolio into
+six at-a-glance views, all built on a single `dashboard.py` module so
+the same numbers flow to every UI (CLI, REPL, TUI, GUI, REST API):
+
+| View | Interactive command | REST endpoint | What you see |
+|---|---|---|---|
+| Summary card | `stats` | `GET /api/dashboard/stats` | positions, market value (EUR), invested, total PnL %, day change |
+| Sector allocation | `sectors` | `GET /api/dashboard/sectors` | per-sector value (EUR) with % bar |
+| Top movers | `movers` | `GET /api/dashboard/movers?limit=N` | gainers & losers of the day |
+| Dividend income | `income` | `GET /api/dashboard/income` | annual + monthly projection, yield on cost, per-position breakdown |
+| Alerts | `alerts` | `GET /api/dashboard/alerts?drawdown_pct=…&concentration_pct=…` | drawdown, concentration, stale-data, missing-cost-basis |
+| Benchmark | `benchmark [ticker]` | `GET /api/dashboard/benchmark?ticker=^GSPC` | portfolio vs index return (alpha) |
+| Full snapshot | `dashboard` | `GET /api/dashboard` | all of the above in one response |
+
+The REST API is **authenticated with a bearer token** that the server
+generates on first start (stored at `data/api_token`, mode `0600`).
+The server binds to `127.0.0.1` by default — `--unsafe-bind-all` is
+required to bind `0.0.0.0`. See
+[`lynx-portfolio/docs/REST_API.md`](https://github.com/borjatarraso/lynx-portfolio/blob/main/docs/REST_API.md)
+for the full endpoint reference.
 
 ## What lives here
 
