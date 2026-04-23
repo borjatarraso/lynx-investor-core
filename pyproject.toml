@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name            = "lynx-investor-core"
-version = "4.0.1"
+version = "5.0"
 description     = "Shared runtime for the Lince Investor suite (lynx-investor-* agents)"
 readme          = "README.md"
 license         = { text = "BSD-3-Clause" }
@@ -28,6 +28,7 @@ dependencies = [
     "beautifulsoup4>=4.12",
     "rich>=13.7",
     "textual>=0.60",
+    "plotext>=5.2",
 ]
 
 [project.urls]
