@@ -1,0 +1,460 @@
+# Spanish translation catalog for the Lince Investor Suite.
+# Copyright (c) 2026, Borja Tarraso
+# This file is distributed under the same BSD-3-Clause license as the suite.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lynx-investor-suite 5.2\n"
+"Report-Msgid-Bugs-To: borja.tarraso@member.fsf.org\n"
+"POT-Creation-Date: 2026-04-23 00:00+0000\n"
+"PO-Revision-Date: 2026-04-23 00:00+0000\n"
+"Last-Translator: Borja Tarraso <borja.tarraso@member.fsf.org>\n"
+"Language-Team: Spanish <borja.tarraso@member.fsf.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. UI verbs / actions ------------------------------------------------------
+msgid "Analyze"
+msgstr "Analizar"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "About"
+msgstr "Acerca de"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Clear"
+msgstr "Limpiar"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+#. Result / status words ---------------------------------------------------
+msgid "OK"
+msgstr "Aceptar"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Warning"
+msgstr "Advertencia"
+
+msgid "Loading"
+msgstr "Cargando"
+
+msgid "Done"
+msgstr "Hecho"
+
+msgid "Failed"
+msgstr "Falló"
+
+msgid "Success"
+msgstr "Éxito"
+
+msgid "No data"
+msgstr "Sin datos"
+
+msgid "No data available."
+msgstr "No hay datos disponibles."
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Average"
+msgstr "Promedio"
+
+msgid "Today"
+msgstr "Hoy"
+
+msgid "Yesterday"
+msgstr "Ayer"
+
+msgid "Last updated"
+msgstr "Última actualización"
+
+msgid "Not found."
+msgstr "No encontrado."
+
+msgid "Please wait..."
+msgstr "Por favor, espere..."
+
+msgid "Goodbye!"
+msgstr "¡Hasta luego!"
+
+#. Conclusion labels ------------------------------------------------------
+msgid "Strong Buy"
+msgstr "Compra Fuerte"
+
+msgid "Buy"
+msgstr "Comprar"
+
+msgid "Accumulate"
+msgstr "Acumular"
+
+msgid "Hold"
+msgstr "Mantener"
+
+msgid "Caution"
+msgstr "Precaución"
+
+msgid "Avoid"
+msgstr "Evitar"
+
+msgid "Sell"
+msgstr "Vender"
+
+#. Sector names -----------------------------------------------------------
+msgid "Basic Materials"
+msgstr "Materiales Básicos"
+
+msgid "Energy"
+msgstr "Energía"
+
+msgid "Industrials"
+msgstr "Industriales"
+
+msgid "Utilities"
+msgstr "Servicios Públicos"
+
+msgid "Healthcare"
+msgstr "Salud"
+
+msgid "Financial Services"
+msgstr "Servicios Financieros"
+
+msgid "Technology"
+msgstr "Tecnología"
+
+msgid "Communication Services"
+msgstr "Servicios de Comunicación"
+
+msgid "Consumer Discretionary"
+msgstr "Consumo Discrecional"
+
+msgid "Consumer Staples"
+msgstr "Consumo Básico"
+
+msgid "Real Estate"
+msgstr "Bienes Raíces"
+
+#. Portfolio dashboard labels ---------------------------------------------
+msgid "Portfolio"
+msgstr "Cartera"
+
+msgid "Positions"
+msgstr "Posiciones"
+
+msgid "Market value"
+msgstr "Valor de mercado"
+
+msgid "Invested"
+msgstr "Invertido"
+
+msgid "Total PnL"
+msgstr "PnL Total"
+
+msgid "Day change"
+msgstr "Cambio diario"
+
+msgid "Alerts"
+msgstr "Alertas"
+
+msgid "Watchlist"
+msgstr "Lista de seguimiento"
+
+msgid "Sectors"
+msgstr "Sectores"
+
+msgid "Movers"
+msgstr "Movimientos"
+
+msgid "Top Gainers"
+msgstr "Mayores subidas"
+
+msgid "Top Losers"
+msgstr "Mayores bajadas"
+
+msgid "Income"
+msgstr "Ingresos"
+
+msgid "Benchmark"
+msgstr "Referencia"
+
+msgid "Dividend Income"
+msgstr "Ingresos por Dividendos"
+
+msgid "Annual income"
+msgstr "Ingresos anuales"
+
+msgid "Monthly income"
+msgstr "Ingresos mensuales"
+
+msgid "Portfolio yield"
+msgstr "Rentabilidad de la cartera"
+
+msgid "Yield on cost"
+msgstr "Rentabilidad sobre coste"
+
+msgid "Sector Allocation"
+msgstr "Asignación por sector"
+
+msgid "Portfolio Stats"
+msgstr "Estadísticas de la cartera"
+
+msgid "Portfolio Alerts"
+msgstr "Alertas de la cartera"
+
+msgid "Ticker"
+msgstr "Símbolo"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Price"
+msgstr "Precio"
+
+msgid "Currency"
+msgstr "Moneda"
+
+msgid "Sector"
+msgstr "Sector"
+
+msgid "Change %"
+msgstr "Cambio %"
+
+msgid "Severity"
+msgstr "Severidad"
+
+msgid "Kind"
+msgstr "Tipo"
+
+#. Common error messages --------------------------------------------------
+msgid "Ticker cannot be empty."
+msgstr "El símbolo no puede estar vacío."
+
+msgid "Invalid ticker format."
+msgstr "Formato de símbolo no válido."
+
+msgid "Operation cancelled."
+msgstr "Operación cancelada."
+
+msgid "Nothing to do."
+msgstr "Nada que hacer."
+
+#. Month names ------------------------------------------------------------
+msgid "January"
+msgstr "Enero"
+
+msgid "February"
+msgstr "Febrero"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Mayo"
+
+msgid "June"
+msgstr "Junio"
+
+msgid "July"
+msgstr "Julio"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Septiembre"
+
+msgid "October"
+msgstr "Octubre"
+
+msgid "November"
+msgstr "Noviembre"
+
+msgid "December"
+msgstr "Diciembre"
+
+#. Short month names ------------------------------------------------------
+msgid "Jan"
+msgstr "Ene"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "Apr"
+msgstr "Abr"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "Aug"
+msgstr "Ago"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "Oct"
+msgstr "Oct"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "Dec"
+msgstr "Dic"
+
+#. Common units -----------------------------------------------------------
+msgid "shares"
+msgstr "acciones"
+
+msgid "share"
+msgstr "acción"
+
+msgid "day"
+msgstr "día"
+
+msgid "days"
+msgstr "días"
+
+msgid "week"
+msgstr "semana"
+
+msgid "weeks"
+msgstr "semanas"
+
+msgid "month"
+msgstr "mes"
+
+msgid "months"
+msgstr "meses"
+
+msgid "year"
+msgstr "año"
+
+msgid "years"
+msgstr "años"
+
+#. Short report headings --------------------------------------------------
+msgid "Summary"
+msgstr "Resumen"
+
+msgid "Overview"
+msgstr "Visión general"
+
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Analysis"
+msgstr "Análisis"
+
+msgid "Conclusion"
+msgstr "Conclusión"
+
+msgid "Report"
+msgstr "Informe"
+
+msgid "Fundamentals"
+msgstr "Fundamentales"
+
+msgid "Valuation"
+msgstr "Valoración"
+
+msgid "Growth"
+msgstr "Crecimiento"
+
+msgid "Quality"
+msgstr "Calidad"
+
+msgid "Risk"
+msgstr "Riesgo"
+
+msgid "News"
+msgstr "Noticias"
+
+msgid "Filings"
+msgstr "Documentos"
+
+msgid "Metrics"
+msgstr "Métricas"
+
+msgid "Cache"
+msgstr "Caché"
+
+#. Interactive-mode banners ----------------------------------------------
+msgid "Interactive Mode"
+msgstr "Modo Interactivo"
+
+msgid "PRODUCTION MODE"
+msgstr "MODO PRODUCCIÓN"
+
+msgid "TESTING MODE"
+msgstr "MODO PRUEBAS"

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name            = "lynx-investor-core"
-version = "5.2"
+version = "5.3"
 description     = "Shared runtime for the Lince Investor suite (lynx-investor-* agents)"
 readme          = "README.md"
 license         = { text = "BSD-3-Clause" }
@@ -43,3 +43,8 @@ Changelog = "https://github.com/borjatarraso/lynx-investor-core/blob/main/CHANGE
 
 [tool.setuptools.packages.find]
 include = ["lynx_investor_core*"]
+
+[tool.setuptools.package-data]
+# Ship compiled and source gettext catalogs with the wheel so the runtime
+# can locate them via ``lynx_investor_core.i18n.LOCALES_DIR``.
+lynx_investor_core = ["locales/*/LC_MESSAGES/*.mo", "locales/*/LC_MESSAGES/*.po"]
