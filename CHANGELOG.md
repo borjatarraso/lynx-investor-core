@@ -6,6 +6,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v4.0] — 2026-04-23
+
+Part of **Lince Investor Suite v4.0**.
+
+### Added
+- `urlsafe` module with `is_safe_url`, `validate_safe_url`, and
+  `safe_webbrowser_open` helpers that block SSRF and URL-scheme abuse
+  (`file://`, `javascript:`, private / loopback hosts, DNS-rebind).
+- `news.download_article` now routes every RSS-sourced URL through
+  `urlsafe` and sets `allow_redirects=False`.
+- `rich_lynx()` takes an optional `secondary_art` parameter so each
+  specialized investor renders its own ASCII glyph instead of the shared
+  pickaxe motif.
+
+### Changed
+- Bumped to v4.0 alongside the Suite-wide coordinated release.
+- `SUITE_VERSION = "4.0"`.
+---
+
 ## [v2.0] — 2026-04-22
 
 Part of **Lince Investor Suite v3.0**.

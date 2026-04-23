@@ -92,11 +92,15 @@ def fetch_all_news(
 def download_article(ticker: str, article: NewsArticle, user_agent: str = "Mozilla/5.0") -> Optional[str]:
     if not article.url:
         return None
+    # Block SSRF / scheme abuse via RSS-sourced URLs before making the request.
+    from .urlsafe import is_safe_url
+    if not is_safe_url(article.url):
+        return None
     ndir = get_news_dir(ticker)
     safe_title = "".join(c if c.isalnum() or c in " -_" else "" for c in article.title)[:60].strip()
     path = ndir / f"{safe_title}.txt"
     try:
-        resp = requests.get(article.url, timeout=15, headers={"User-Agent": user_agent})
+        resp = requests.get(article.url, timeout=15, headers={"User-Agent": user_agent}, allow_redirects=False)
         resp.raise_for_status()
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(resp.text, "html.parser")

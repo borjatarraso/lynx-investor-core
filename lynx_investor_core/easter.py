@@ -168,9 +168,11 @@ def rich_rocket(console) -> None:
                         border_style="bold red"))
 
 
-def rich_lynx(console, egg: AgentEasterEgg) -> None:
+def rich_lynx(console, egg: AgentEasterEgg, *, secondary_art: str | None = None) -> None:
     from rich.panel import Panel
-    arts = [_lynx_ascii(egg.label), WOLF_ASCII, BULL_ASCII, _pickaxe_ascii(egg.sublabel)]
+    if secondary_art is None:
+        secondary_art = _pickaxe_ascii(egg.sublabel)
+    arts = [_lynx_ascii(egg.label), WOLF_ASCII, BULL_ASCII, secondary_art]
     console.print(Panel(random.choice(arts), border_style="bold cyan"))
 
 
