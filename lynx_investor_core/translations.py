@@ -82,6 +82,8 @@ LANG_FULL_NAMES: dict[str, str] = {
 # silently fall through to the US text.
 TRANSLATIONS: dict[str, dict[str, str]] = {
     "us": {
+        "mode_testing": "TESTING",
+        "mode_production": "PRODUCTION",
         # Common nouns
         "ticker": "Ticker",
         "name": "Name",
@@ -165,6 +167,8 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "contact": "Contact",
     },
     "es": {
+        "mode_testing": "PRUEBAS",
+        "mode_production": "PRODUCCIÓN",
         "ticker": "Ticker",
         "name": "Nombre",
         "price": "Precio",
@@ -235,6 +239,8 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "contact": "Contacto",
     },
     "it": {
+        "mode_testing": "TEST",
+        "mode_production": "PRODUZIONE",
         "ticker": "Ticker",
         "name": "Nome",
         "price": "Prezzo",
@@ -304,6 +310,8 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "contact": "Contatto",
     },
     "de": {
+        "mode_testing": "TEST",
+        "mode_production": "PRODUKTION",
         "ticker": "Ticker",
         "name": "Name",
         "price": "Preis",
@@ -373,6 +381,8 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "contact": "Kontakt",
     },
     "fr": {
+        "mode_testing": "TEST",
+        "mode_production": "PRODUCTION",
         "ticker": "Ticker",
         "name": "Nom",
         "price": "Prix",
@@ -442,6 +452,8 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "contact": "Contact",
     },
     "fa": {
+        "mode_testing": "آزمایشی",
+        "mode_production": "تولید",
         "ticker": "نماد",
         "name": "نام",
         "price": "قیمت",

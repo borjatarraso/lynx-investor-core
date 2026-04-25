@@ -61,15 +61,22 @@ def mount_tk_language_button(
         activebackground=bg,
         activeforeground=fg,
         bd=0,
-        padx=10,
-        pady=2,
+        padx=12,
+        pady=4,
         cursor="hand2",
-        font=("Helvetica", 9, "bold"),
+        font=("Helvetica", 11, "bold"),
         relief="flat",
-        highlightthickness=1,
+        highlightthickness=2,
         highlightbackground=accent,
+        highlightcolor=accent,
     )
-    btn.place(relx=1.0, rely=1.0, anchor="se", x=-8, y=-8)
+    btn.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
+    try:
+        btn.lift()
+        # Re-lift after every window event so packed widgets don't bury it.
+        root.bind("<Configure>", lambda _e, b=btn: b.lift(), add="+")
+    except Exception:
+        pass
 
     def _cycle(_event=None):
         new_code = _tr.cycle_language()
