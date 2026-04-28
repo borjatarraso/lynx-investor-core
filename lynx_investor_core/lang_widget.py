@@ -78,9 +78,42 @@ def mount_tk_language_button(
     except Exception:
         pass
 
+    def _show_restart_toast(new_code: str) -> None:
+        """Briefly inform the user that they need to restart for the new
+        language to apply across the whole UI. The toast auto-dismisses
+        so it doesn't block keyboard input."""
+        try:
+            msg = _tr.t("lang_restart_required", lang=new_code)
+            badge = _tr.language_code_label(new_code)
+            toast = tk.Toplevel(root)
+            toast.wm_overrideredirect(True)
+            toast.configure(bg=accent)
+            try:
+                toast.attributes("-topmost", True)
+            except tk.TclError:
+                pass
+            tk.Label(
+                toast, text=f"  {badge}  {msg}  ",
+                bg=accent, fg="#1e1e2e",
+                font=("Helvetica", 11, "bold"),
+                padx=10, pady=6,
+            ).pack()
+            toast.update_idletasks()
+            try:
+                rx, ry = root.winfo_rootx(), root.winfo_rooty()
+                rw, rh = root.winfo_width(), root.winfo_height()
+                tw, th = toast.winfo_width(), toast.winfo_height()
+                toast.geometry(f"+{rx + (rw - tw) // 2}+{ry + rh - th - 60}")
+            except tk.TclError:
+                pass
+            toast.after(3500, lambda: toast.destroy() if toast.winfo_exists() else None)
+        except Exception:
+            pass
+
     def _cycle(_event=None):
         new_code = _tr.cycle_language()
         label_var.set(_tr.language_code_label(new_code))
+        _show_restart_toast(new_code)
         if on_change:
             try:
                 on_change(new_code)
@@ -104,6 +137,7 @@ def mount_tk_language_button(
     def _set(code: str):
         new_code = _tr.set_language(code)
         label_var.set(_tr.language_code_label(new_code))
+        _show_restart_toast(new_code)
         if on_change:
             try:
                 on_change(new_code)
