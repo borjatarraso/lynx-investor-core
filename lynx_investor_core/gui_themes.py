@@ -35,7 +35,9 @@ __all__ = [
     "SUITE_GUI_THEME_NAMES",
     "apply_theme",
     "list_themes_by_family",
+    "list_user_themes",
     "register_gui_themes",
+    "register_user_gui_themes",
     "theme_by_name",
     "ThemeCycler",
 ]
@@ -54,9 +56,15 @@ DEFAULT_THEME_NAME = "catppuccin-mocha"
 # and ``apply_theme`` look them up transparently.
 _EXTRA_THEMES: List[Theme] = []
 
+# Themes loaded from ``$XDG_CONFIG_HOME/lynx-theme/themes/*.json`` — the
+# user's own creations from the Lynx Theme editor. Kept separate from
+# ``_EXTRA_THEMES`` so every Suite GUI can list them under a "Custom"
+# submenu without mixing in sector house themes.
+_USER_THEMES: List[Theme] = []
+
 
 def register_gui_themes(*themes: Theme) -> None:
-    """Add *themes* to the runtime registry.
+    """Add sector / house *themes* to the runtime registry.
 
     After registration, :func:`theme_by_name` and :func:`apply_theme` can
     resolve the theme by name. Useful for sector packages that ship their
@@ -70,12 +78,38 @@ def register_gui_themes(*themes: Theme) -> None:
         _EXTRA_THEMES.append(theme)
 
 
+def register_user_gui_themes(*themes: Theme) -> None:
+    """Add user-saved *themes* (from the Lynx Theme editor) to the registry.
+
+    These show up under "Themes → Custom" in every Suite GUI's menu so
+    the user's own creations are one click away in any app or agent.
+
+    Duplicates (by ``name``) are ignored.
+    """
+    for theme in themes:
+        if theme_by_name(theme.name) is not None:
+            continue
+        _USER_THEMES.append(theme)
+
+
+def list_user_themes() -> List[Theme]:
+    """Return user-saved themes, in registration order.
+
+    Empty list before :func:`lynx_theme.storage.register_user_themes` is
+    called (i.e. on a fresh process before any Suite GUI boots).
+    """
+    return list(_USER_THEMES)
+
+
 def theme_by_name(name: str) -> Optional[Theme]:
     """Return the :class:`Theme` matching *name* or ``None``."""
     for theme in SUITE_GUI_THEMES:
         if theme.name == name:
             return theme
     for theme in _EXTRA_THEMES:
+        if theme.name == name:
+            return theme
+    for theme in _USER_THEMES:
         if theme.name == name:
             return theme
     return None
@@ -540,9 +574,12 @@ class ThemeCycler:
 
     def __init__(self, root, start: str = DEFAULT_THEME_NAME) -> None:
         self._root = root
-        # Include any house themes registered via ``register_gui_themes``
-        # so sector GUIs can boot (and cycle) on their own palettes.
-        self._themes: List[Theme] = list(SUITE_GUI_THEMES) + list(_EXTRA_THEMES)
+        # Include house themes registered via ``register_gui_themes`` and
+        # user themes registered via ``register_user_gui_themes`` so the
+        # cycler can switch to anything visible in the Themes menu.
+        self._themes: List[Theme] = (
+            list(SUITE_GUI_THEMES) + list(_EXTRA_THEMES) + list(_USER_THEMES)
+        )
         names = [t.name for t in self._themes]
         try:
             self._index = names.index(start)

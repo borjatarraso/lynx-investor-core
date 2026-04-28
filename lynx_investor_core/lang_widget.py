@@ -84,11 +84,15 @@ def mount_tk_language_button(
         pass
 
     def _show_restart_toast(new_code: str) -> None:
-        """Briefly inform the user that they need to restart for the new
-        language to apply across the whole UI. The toast auto-dismisses
-        so it doesn't block keyboard input."""
+        """Show a brief "Restarting in <lang>…" toast then auto-restart.
+
+        Tk widget text is captured at construction, so the only reliable way
+        to flip every label / menu / dialog without missing a string is to
+        re-exec the same process. The toast gives the user ~1.2 s of
+        feedback before the restart so they understand the window blink.
+        """
         try:
-            msg = _tr.t("lang_restart_required", lang=new_code)
+            msg = _tr.t("lang_restarting", lang=new_code)
             badge = _tr.language_code_label(new_code)
             toast = tk.Toplevel(root)
             toast.wm_overrideredirect(True)
@@ -111,9 +115,29 @@ def mount_tk_language_button(
                 toast.geometry(f"+{rx + (rw - tw) // 2}+{ry + rh - th - 60}")
             except tk.TclError:
                 pass
-            toast.after(3500, lambda: toast.destroy() if toast.winfo_exists() else None)
         except Exception:
             pass
+        # Auto-restart so every widget re-reads the new language. Clean
+        # destroy first so Tk releases its X11 / DBus handles before exec.
+        root.after(1200, _restart_self)
+
+    def _restart_self() -> None:
+        import os
+        import sys
+        try:
+            root.destroy()
+        except Exception:
+            pass
+        try:
+            os.execvp(sys.argv[0], sys.argv)
+        except Exception:
+            # If exec fails (e.g. argv[0] not on PATH because the user ran
+            # ``python -m`` directly), fall back to re-running through the
+            # current interpreter.
+            try:
+                os.execv(sys.executable, [sys.executable, *sys.argv])
+            except Exception:
+                pass
 
     def _cycle(_event=None):
         new_code = _tr.cycle_language()
