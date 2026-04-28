@@ -70,7 +70,12 @@ def mount_tk_language_button(
         highlightbackground=accent,
         highlightcolor=accent,
     )
-    btn.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
+    # Most Suite GUIs have a vertical scrollbar (~17 px wide) running flush
+    # against the right edge of the output area. Anchoring the badge at the
+    # bottom-right corner with x=-10 made it overlap that scrollbar in every
+    # app. Push it ~50 px in from the right so it sits clearly to the left
+    # of the scrollbar with ≥10 px of breathing room.
+    btn.place(relx=1.0, rely=1.0, anchor="se", x=-50, y=-10)
     try:
         btn.lift()
         # Re-lift after every window event so packed widgets don't bury it.
